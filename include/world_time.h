@@ -27,3 +27,5 @@ std::vector<location> locations;
     std::replace(fetched.begin(), fetched.end(), ',', ' ');
     
     std::cout << fetched.str();
+
+    // s - 0 1 2 3 4 0 1 2 3 4 d - 4 3 2 1 0 4 3 2 1 0 

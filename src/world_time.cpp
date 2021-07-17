@@ -1,5 +1,6 @@
-
+#include <iostream>
 #include <sstream>
+#include <algorithm>
 
 #include <cstdlib>
 
@@ -23,15 +24,34 @@ int main(int argc, char *argv[])
     curlpp::Cleanup cleaner;
     curlpp::Easy request;
 
-    // Setting the URL to retrive.
-    request.setOpt(new curlpp::options::Url(url));
+    std::stringstream fetched;
 
-    std::cout << request << std::endl;
-
-    // Even easier version. It does the same thing 
-    // but if you need to download only an url,
-    // this is the easiest way to do it.
-    std::cout << curlpp::options::Url(url) << std::endl; // ---------------------------------------------------------------------------------
+    fetched << curlpp::options::Url(url);
+    std::string edit;
+    fetched >> edit;
+    //edit.erase(0, 1);
+    //edit.pop_back();
+    //std::replace(edit.begin(), edit.end(), ':', ' ');
+    //std::replace(edit.begin(), edit.end(), ' ', '_');
+    //std::replace(edit.begin(), edit.end(), ',', ' ');
+    /*
+    std::istringstream long_line(edit);
+    std::string first;
+    std::string second;
+    
+    while (long_line >> first)
+    {
+        if (first.substr(1, 8) == "datetime")
+        {
+            
+            std::cout << "the time in ... is " << first.substr(first.find('T') + 1, 8)<< '\n';
+        }
+    }
+    */
+    
+    std::cout << "the time in ... is " << edit.substr(edit.find('T') + 1, 8)<< '\n';
+    
+    //std::cout << edit << '\n';
 
     return EXIT_SUCCESS;
   }

@@ -14,7 +14,7 @@ message(STATUS "Fetching curlpp")
 FetchContent_Declare(curlpp GIT_REPOSITORY https://github.com/jpbarrette/curlpp.git)
 FetchContent_MakeAvailable(curlpp)
 
-add_executable(time world_time.cpp)
+add_executable(time src/world_time.cpp)
 
 target_include_directories(time PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(time PUBLIC CURL::libcurl -lcurlpp)
