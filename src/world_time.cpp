@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
    
     for (timezn a : timezns)
     {
-        std::cout << a.name << "-> " << a.region << '-' << a.location << '-' << a.area << '\n';
+        std::cout << a.name() << "-> " << a.region() << '-' << a.location() << '-' << a.area() << '\n';
     }
    
   }

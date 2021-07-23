@@ -5,48 +5,43 @@
 #include <fstream>
 #include <algorithm>
 
-struct timezn
+class timezn
 {
-    std::string name;
-    std::string region;
-    std::string location;
-    std::string area;
+private:    
+    std::string name_;
+    std::string region_;
+    std::string location_;
+    std::string area_;
+    
+public:    
+    timezn values(std::string& timezone);
+    std::string name() { return name_; }
+    std::string region() { return region_; }
+    std::string location() { return location_; }
+    std::string area() { return area_; }
 };
 
 std::vector<timezn> timezns;
+
+timezn timezn::values(std::string& timezone)
+{
+    std::replace(timezone.begin(), timezone.end(), '/', ' ');
+    std::stringstream temp(timezone);
+    temp >> region_ >> location_ >> area_;
+
+    name_ = area_ == location_ ? region_ : area_.size() == 0 ? location_ : area_;
+
+    return *this;
+}
 
 void read_timezones()
 {
     std::ifstream timezones("../timezones");
     std::string timezone;
-    std::string region;
-    std::string location;
-    std::string area;
 
     while (timezones >> timezone)
     {
-        int forward_slash = std::count(timezone.begin(), timezone.end(), '/');
-        
-        if (!forward_slash)
-        {
-            timezns.push_back(timezn(timezone, timezone, "", ""));
-        }
-        else if(forward_slash == 1)
-        {
-            std::replace(timezone.begin(), timezone.end(), '/', ' ');
-            std::stringstream temp(timezone);
-            temp >> region >> location;
-            
-            timezns.push_back(timezn(location, region, location, ""));
-        }
-        else
-        {
-            std::replace(timezone.begin(), timezone.end(), '/', ' ');
-            std::stringstream temp(timezone);
-            temp >> region >> location >> area;
-            
-            timezns.push_back(timezn(area, region, location, area));
-        }
+        timezns.push_back(timezn().values(timezone));
     }
 }
 
