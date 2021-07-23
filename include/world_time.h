@@ -55,4 +55,19 @@ void display_time(std::stringstream& ss)
             std::cout << "the time in ... is " << sch.substr(sch.find('T') + 1, 8) << '\n';
 }
 
+std::string to_lower(std::string s)
+{
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
+                   { return std::tolower(c); });
+    return s;
+}
+
+std::string arguments(char* argv[])
+{
+    std::string first = argv[1] == 0 ? throw std::runtime_error("...") : argv[1];
+    std::string second = argv[2] == 0 ? "" : argv[2];
+  
+    return second.empty() ? first : first.append('_' + second);
+}
+
 // http://worldtimeapi.org/api/timezone/
