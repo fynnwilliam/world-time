@@ -7,7 +7,7 @@
 #include <curlpp/Options.hpp>
 #include <curlpp/Exception.hpp>
 
-#include "world_time.h";
+#include "world_time.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
   
   try
   {
+    /*
     curlpp::Cleanup cleaner;
     curlpp::Easy request;
 
@@ -29,7 +30,16 @@ int main(int argc, char *argv[])
 
     fetched << curlpp::options::Url(url);
     
-   display_time(fetched);
+    display_time(fetched);
+    */
+   
+    read_timezones();
+   
+    for (timezn a : timezns)
+    {
+        std::cout << a.name << "-> " << a.region << '-' << a.location << '-' << a.area << '\n';
+    }
+   
   }
   
   catch (curlpp::LogicError& e)
