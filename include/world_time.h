@@ -3,7 +3,9 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <iostream>
 #include <algorithm>
+#include <exception>
 
 class timezn
 {
@@ -15,10 +17,10 @@ private:
     
 public:    
     timezn values(std::string& timezone);
-    std::string name() { return name_; }
-    std::string region() { return region_; }
-    std::string location() { return location_; }
-    std::string area() { return area_; }
+    std::string& name() { return name_; }
+    std::string& region() { return region_; }
+    std::string& location() { return location_; }
+    std::string& area() { return area_; }
 };
 
 std::vector<timezn> timezns;
@@ -45,14 +47,14 @@ void read_timezones()
     }
 }
 
-void display_time(std::stringstream& ss)
+void display_time(std::stringstream& ss, std::string input)
 {
     std::string sch;
     int count{};
     
     while (ss >> sch)
         if (count++ == 5)
-            std::cout << "the time in ... is " << sch.substr(sch.find('T') + 1, 8) << '\n';
+            std::cout << "the time in " << input << " is "<< sch.substr(sch.find('T') + 1, 8) << '\n';
 }
 
 std::string to_lower(std::string s)
@@ -62,12 +64,37 @@ std::string to_lower(std::string s)
     return s;
 }
 
-std::string arguments(char* argv[])
+auto invalid_argc()
 {
-    std::string first = argv[1] == 0 ? throw std::runtime_error("...") : argv[1];
-    std::string second = argv[2] == 0 ? "" : argv[2];
+    return std::invalid_argument("invalid number of arguments");
+}
+
+std::string arguments(int argc, char* argv[])
+{
+    if (argc > 3) { throw invalid_argc(); }
+    
+    std::string first = !argv[1] ? throw invalid_argc() : argv[1];
+    std::string second = !argv[2] ? std::string{} : argv[2];
   
     return second.empty() ? first : first.append('_' + second);
 }
 
-// http://worldtimeapi.org/api/timezone/
+std::string append(std::string& item)
+{
+    return item.empty() ? item : '/' + item;
+}
+
+std::string find_timezone(std::string usr_input)
+{
+    for (timezn& a : timezns)
+        {   
+             if (to_lower(a.name()) == to_lower(usr_input))
+             {
+                  return std::string{"/timezone"} + append(a.region()) + append(a.location()) + append(a.area());
+             }
+        }
+        
+        return std::string{};
+}
+
+auto not_avaliable = []() { return std::range_error("timezone not found"); };
