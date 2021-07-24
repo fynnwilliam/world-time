@@ -17,10 +17,11 @@ private:
     
 public:    
     timezn values(std::string& timezone);
-    std::string& name() { return name_; }
-    std::string& region() { return region_; }
-    std::string& location() { return location_; }
-    std::string& area() { return area_; }
+    std::string sub_link() const;
+    std::string name() const { return name_; }
+    std::string region() const { return region_; }
+    std::string location() const { return location_; }
+    std::string area() const { return area_; }
 };
 
 std::vector<timezn> timezns;
@@ -34,6 +35,12 @@ timezn timezn::values(std::string& timezone)
     name_ = area_ == location_ ? region_ : area_.size() == 0 ? location_ : area_;
 
     return *this;
+}
+
+std::string insert_slash(std::string item);
+std::string timezn::sub_link() const
+{
+    return std::string{"/timezone"} + insert_slash(region()) + insert_slash(location()) + insert_slash(area());
 }
 
 void read_timezones()
@@ -54,7 +61,7 @@ void display_time(std::stringstream& ss, std::string input)
     
     while (ss >> sch)
         if (count++ == 5)
-            std::cout << "the time in " << input << " is "<< sch.substr(sch.find('T') + 1, 8) << '\n';
+            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << " in " << input << '\n';
 }
 
 std::string to_lower(std::string s)
@@ -79,7 +86,7 @@ std::string arguments(int argc, char* argv[])
     return second.empty() ? first : first.append('_' + second);
 }
 
-std::string append(std::string& item)
+std::string insert_slash(std::string item)
 {
     return item.empty() ? item : '/' + item;
 }
@@ -90,7 +97,7 @@ std::string find_timezone(std::string usr_input)
         {   
              if (to_lower(a.name()) == to_lower(usr_input))
              {
-                  return std::string{"/timezone"} + append(a.region()) + append(a.location()) + append(a.area());
+                  return a.sub_link();
              }
         }
         
