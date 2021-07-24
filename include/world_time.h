@@ -1,4 +1,5 @@
 #pragma once
+#include <regex>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -80,6 +81,15 @@ std::string arguments(int argc, char* argv[])
 {
     if (argc > 3) { throw invalid_argc(); }
     
+    if (ip_address(argv[1])
+    { 
+        if (argc > 2) { throw invalid_argc(); }
+        
+        std::string ip{argv[1]};
+        
+        return '/' + ip;
+    }
+    
     std::string first = !argv[1] ? throw invalid_argc() : argv[1];
     std::string second = !argv[2] ? std::string{} : argv[2];
   
@@ -105,3 +115,37 @@ std::string find_timezone(std::string usr_input)
 }
 
 auto not_avaliable = []() { return std::range_error("timezone not found"); };
+
+bool private_a(std::string ip)
+{
+    std::regex pattern("([1][0])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
+    return std::regex_match(ip, pattern);
+}
+
+bool private_b(std::string ip)
+{
+    std::regex pattern("([1][7][2])(\\.(1[6-9]|2[0-9]|3[01]))(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){2}");
+    return std::regex_match(ip, pattern);
+}
+
+bool private_c(std::string ip)
+{
+    std::regex pattern("([1][9][2])(\\.([1][6][8]))(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){2}");
+    return std::regex_match(ip, pattern);
+}
+
+bool private_ip(std::string ip)
+{
+    return private_a(ip) || private_b(ip) || private_c(ip);
+}
+
+bool public_ip(std::string ip)
+{
+    return !private_ip(ip);
+}
+
+bool ip_address(std::string item)
+{
+    std::regex pattern("([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
+    return std::regex_match(item, pattern);
+}
