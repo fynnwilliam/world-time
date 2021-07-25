@@ -84,24 +84,29 @@ auto invalid_argc()
     return std::invalid_argument("invalid number of arguments");
 }
 
-std::string arguments(int argc, char* argv[])
-{   
-    if (argc > 3 || argc == 1) { throw invalid_argc(); }
+std::string ip(int argc, char* argv[])
+{
+    if (argc > 2) { throw invalid_argc(); }
     
-    if (ip_address(argv[1]))
-    { 
-        if (argc > 2) { throw invalid_argc(); }
-        
-        std::string ip{argv[1]};
-        
-        if (public_ip(ip)) { return ip; }
-        else { throw std::out_of_range(ip + " is not a public IP"); }
-    }
+    std::string ip{argv[1]};
     
+    if (public_ip(ip)) { return ip; }
+    throw std::out_of_range("\"" + ip + "\" is not a public IP");
+}
+
+std::string location(char* argv[])
+{
     std::string first = argv[1];
     std::string second = !argv[2] ? std::string{} : argv[2];
   
     return second.empty() ? first : first.append('_' + second);
+}
+
+std::string arguments(int argc, char* argv[])
+{
+    if (argc > 3 || argc == 1) { throw invalid_argc(); }
+
+    return ip_address(argv[1]) ? ip(argc, argv) : location(argv);
 }
 
 std::string insert_slash(std::string item)
