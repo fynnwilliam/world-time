@@ -9,7 +9,6 @@
 #include <exception>
 
 #include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 #include <curlpp/Exception.hpp>
 
@@ -69,14 +68,14 @@ bool private_ip(std::string const&);
 bool public_ip(std::string const&);
 bool ip_address(std::string const&);
 
-void display_time(std::stringstream& ss, std::string const& input)
+void display_time(std::stringstream& ss, std::string const& usr_input)
 {
     std::string sch;
     int count{};
 
     while (ss >> sch)
         if (count++ == 5)
-            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << (ip_address(input) ? " at " : " in ") << input << '\n';
+            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << (ip_address(usr_input) ? " at " : " in ") << usr_input << '\n';
 }
 
 std::string to_lower(std::string s)
@@ -91,7 +90,7 @@ auto invalid_argc()
     return std::invalid_argument("invalid number of arguments");
 }
 
-std::string ip(int argc, char* argv[])
+std::string ip(int const& argc, char* argv[])
 {
     if (argc > 2) { throw invalid_argc(); }
 
@@ -109,7 +108,7 @@ std::string location(char* argv[])
     return second.empty() ? first : first.append('_' + second);
 }
 
-std::string arguments(int argc, char* argv[])
+std::string arguments(int const& argc, char* argv[])
 {
     if (argc > 3 || argc == 1) { throw invalid_argc(); }
 
@@ -172,21 +171,26 @@ bool ip_address(std::string const& item)
     return std::regex_match(item, pattern);
 }
 
-void retrieve_time(int argc, char* argv[])
+std::string url(std::string const& usr_input)
 {
-    std::string input = arguments(argc, argv);
     std::string url{"http://worldtimeapi.org/api"};
+    
+    std::string zone{find_timezone(usr_input)};
+    zone.empty() ? throw not_avaliable() : url.append(zone).append(".txt");
+    
+    return url;
+}
+
+void retrieve_time(int const& argc, char* argv[])
+{
+    std::string usr_input{arguments(argc, argv)};
 
     read_timezones();
 
-    curlpp::Cleanup cleaner;
-    curlpp::Easy request;
-
-    std::string zone = find_timezone(input);
-    zone.empty() ? throw not_avaliable() : url.append(zone).append(".txt");
+    std::string url{::url(usr_input)};
 
     std::stringstream fetched;
     fetched << curlpp::options::Url(url);
 
-    display_time(fetched, input);
+    display_time(fetched, usr_input);
 }

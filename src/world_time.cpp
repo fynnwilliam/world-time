@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 
     catch (curlpp::LogicError& e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << e.what() << "inside curllpp::logicerror" <<std::endl;
     }
 
     catch (curlpp::RuntimeError& e)
