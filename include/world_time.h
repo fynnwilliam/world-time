@@ -85,8 +85,8 @@ auto invalid_argc()
 }
 
 std::string arguments(int argc, char* argv[])
-{
-    if (argc > 3) { throw invalid_argc(); }
+{   
+    if (argc > 3 || argc == 1) { throw invalid_argc(); }
     
     if (ip_address(argv[1]))
     { 
@@ -98,7 +98,7 @@ std::string arguments(int argc, char* argv[])
         else { throw std::out_of_range(ip + " is not a public IP"); }
     }
     
-    std::string first = !argv[1] ? throw invalid_argc() : argv[1];
+    std::string first = argv[1];
     std::string second = !argv[2] ? std::string{} : argv[2];
   
     return second.empty() ? first : first.append('_' + second);
