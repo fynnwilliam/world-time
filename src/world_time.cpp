@@ -19,8 +19,6 @@ int main(int argc, char *argv[])
         
         std::string zone = find_timezone(input);
         zone.empty() ? throw not_avaliable() : url.append(zone).append(".txt");
-        
-        std::cout << url << '\n'; // clear line...................................................................................................
 
         std::stringstream fetched;
         fetched << curlpp::options::Url(url);
@@ -31,11 +29,17 @@ int main(int argc, char *argv[])
     catch (std::invalid_argument& e)
     {
         std::cout << e.what()
-                  << "\nplease call with a specific location or region"
+                  << "\nplease call with a specific location, region or IP"
                   << "\neg.1: " << argv[0] << " Los Angeles"
                   << "\neg.2: " << argv[0] << " Salta"
                   << "\neg.3: " << argv[0] << " GMT+2"
+                  << "\neg.4: " << argv[0] << " 8.8.8.8"
                   << std::endl;
+    }
+    
+    catch (std::out_of_range& e)
+    {
+        std::cout << e.what() << std::endl;
     }
 
     catch (std::range_error& e)

@@ -55,6 +55,13 @@ void read_timezones()
     }
 }
 
+bool private_a(std::string const&);
+bool private_b(std::string const&);
+bool private_c(std::string const&);
+bool private_ip(std::string const&);
+bool public_ip(std::string const&);
+bool ip_address(std::string const&);
+
 void display_time(std::stringstream& ss, std::string input)
 {
     std::string sch;
@@ -62,7 +69,7 @@ void display_time(std::stringstream& ss, std::string input)
     
     while (ss >> sch)
         if (count++ == 5)
-            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << " in " << input << '\n';
+            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << (ip_address(input) ? " at " : " in ") << input << '\n';
 }
 
 std::string to_lower(std::string s)
@@ -81,13 +88,14 @@ std::string arguments(int argc, char* argv[])
 {
     if (argc > 3) { throw invalid_argc(); }
     
-    if (ip_address(argv[1])
+    if (ip_address(argv[1]))
     { 
         if (argc > 2) { throw invalid_argc(); }
         
         std::string ip{argv[1]};
         
-        return '/' + ip;
+        if (public_ip(ip)) { return ip; }
+        else { throw std::out_of_range(ip + " is not a public IP"); }
     }
     
     std::string first = !argv[1] ? throw invalid_argc() : argv[1];
@@ -103,6 +111,8 @@ std::string insert_slash(std::string item)
 
 std::string find_timezone(std::string usr_input)
 {
+    if (ip_address(usr_input)) { return std::string{"/ip/"}.append(usr_input); }
+
     for (timezn& a : timezns)
         {   
              if (to_lower(a.name()) == to_lower(usr_input))
@@ -116,35 +126,35 @@ std::string find_timezone(std::string usr_input)
 
 auto not_avaliable = []() { return std::range_error("timezone not found"); };
 
-bool private_a(std::string ip)
+bool private_a(std::string const& ip)
 {
     std::regex pattern("([1][0])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
     return std::regex_match(ip, pattern);
 }
 
-bool private_b(std::string ip)
+bool private_b(std::string const& ip)
 {
     std::regex pattern("([1][7][2])(\\.(1[6-9]|2[0-9]|3[01]))(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){2}");
     return std::regex_match(ip, pattern);
 }
 
-bool private_c(std::string ip)
+bool private_c(std::string const& ip)
 {
     std::regex pattern("([1][9][2])(\\.([1][6][8]))(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){2}");
     return std::regex_match(ip, pattern);
 }
 
-bool private_ip(std::string ip)
+bool private_ip(std::string const& ip)
 {
     return private_a(ip) || private_b(ip) || private_c(ip);
 }
 
-bool public_ip(std::string ip)
+bool public_ip(std::string const& ip)
 {
     return !private_ip(ip);
 }
 
-bool ip_address(std::string item)
+bool ip_address(std::string const& item)
 {
     std::regex pattern("([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
     return std::regex_match(item, pattern);
