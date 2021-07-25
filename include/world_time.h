@@ -8,15 +8,20 @@
 #include <algorithm>
 #include <exception>
 
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
+#include <curlpp/Exception.hpp>
+
 class timezn
 {
-private:    
+private:
     std::string name_;
     std::string region_;
     std::string location_;
     std::string area_;
-    
-public:    
+
+public:
     timezn values(std::string& timezone);
     std::string sub_link() const;
     std::string name() const { return name_; }
@@ -53,6 +58,8 @@ void read_timezones()
     {
         timezns.push_back(timezn().values(timezone));
     }
+    
+    timezones.close();
 }
 
 bool private_a(std::string const&);
@@ -62,11 +69,11 @@ bool private_ip(std::string const&);
 bool public_ip(std::string const&);
 bool ip_address(std::string const&);
 
-void display_time(std::stringstream& ss, std::string input)
+void display_time(std::stringstream& ss, std::string const& input)
 {
     std::string sch;
     int count{};
-    
+
     while (ss >> sch)
         if (count++ == 5)
             std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << (ip_address(input) ? " at " : " in ") << input << '\n';
@@ -75,7 +82,7 @@ void display_time(std::stringstream& ss, std::string input)
 std::string to_lower(std::string s)
 {
     std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
-                   { return std::tolower(c); });
+        { return std::tolower(c); });
     return s;
 }
 
@@ -87,9 +94,9 @@ auto invalid_argc()
 std::string ip(int argc, char* argv[])
 {
     if (argc > 2) { throw invalid_argc(); }
-    
+
     std::string ip{argv[1]};
-    
+
     if (public_ip(ip)) { return ip; }
     throw std::out_of_range("\"" + ip + "\" is not a public IP");
 }
@@ -98,7 +105,7 @@ std::string location(char* argv[])
 {
     std::string first = argv[1];
     std::string second = !argv[2] ? std::string{} : argv[2];
-  
+
     return second.empty() ? first : first.append('_' + second);
 }
 
@@ -114,19 +121,19 @@ std::string insert_slash(std::string item)
     return item.empty() ? item : '/' + item;
 }
 
-std::string find_timezone(std::string usr_input)
+std::string find_timezone(std::string const& usr_input)
 {
     if (ip_address(usr_input)) { return std::string{"/ip/"}.append(usr_input); }
 
     for (timezn& a : timezns)
-        {   
-             if (to_lower(a.name()) == to_lower(usr_input))
-             {
-                  return a.sub_link();
-             }
+    {
+        if (to_lower(a.name()) == to_lower(usr_input))
+        {
+            return a.sub_link();
         }
-        
-        return std::string{};
+    }
+
+    return std::string{};
 }
 
 auto not_avaliable = []() { return std::range_error("timezone not found"); };
@@ -163,4 +170,23 @@ bool ip_address(std::string const& item)
 {
     std::regex pattern("([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
     return std::regex_match(item, pattern);
+}
+
+void retrieve_time(int argc, char* argv[])
+{
+    std::string input = arguments(argc, argv);
+    std::string url{"http://worldtimeapi.org/api"};
+
+    read_timezones();
+
+    curlpp::Cleanup cleaner;
+    curlpp::Easy request;
+
+    std::string zone = find_timezone(input);
+    zone.empty() ? throw not_avaliable() : url.append(zone).append(".txt");
+
+    std::stringstream fetched;
+    fetched << curlpp::options::Url(url);
+
+    display_time(fetched, input);
 }
