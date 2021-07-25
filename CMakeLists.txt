@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.18.4)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(time_api)
 
@@ -13,7 +12,7 @@ FetchContent_MakeAvailable(curlpp)
 message(STATUS "Looking for curl")
 find_package(CURL 7.74.0)
 
-add_executable(time src/world_time.cpp)
+add_executable(time src/main.cpp src/timezn.cpp)
 
 target_include_directories(time PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(time PUBLIC CURL::libcurl -lcurlpp)
