@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     catch (curlpp::RuntimeError& e)
     {
         std::cout << e.what()
-                  << "\nplease check your internet connection or check for typos"
+                  << "\nplease check your internet connection"
                   << std::endl;
     }
 }
