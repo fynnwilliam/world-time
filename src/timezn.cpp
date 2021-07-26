@@ -1,4 +1,5 @@
 #include "timezn.h"
+#include "timezones.h"
 
 std::vector<timezn> timezns;
 
@@ -51,15 +52,13 @@ std::string arguments(int const& argc, char** argv)
 
 void read_timezones()
 {
-    std::ifstream timezones("../timezones");
+    std::stringstream timezones(::timezones);
     std::string timezone;
 
     while (timezones >> timezone)
     {
         timezns.push_back(timezn().values(timezone));
     }
-    
-    timezones.close();
 }
 
 std::string url(std::string const& usr_input)
