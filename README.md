@@ -1,5 +1,5 @@
 # world-time
-The code tells the time at a specific __location__ or __region__, using [WorldTimeAPI](http://worldtimeapi.org/)
+The code tells the time at a specific __location__ or __region__, using [WorldTimeAPI](http://worldtimeapi.org/)  
 It may also tell the time for a specific __IP address__ - usually has to be a __public IP__. 
 
 ##### compile
@@ -11,6 +11,6 @@ It may also tell the time for a specific __IP address__ - usually has to be a __
 
 ##### run
 
-`./time [location]` _or_
-`./time [region]` _or_
-`./time [IP address]` 
+* `./time [location]` _or_
+* `./time [region]` _or_
+* `./time [IP address]` 
