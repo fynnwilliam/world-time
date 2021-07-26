@@ -78,8 +78,16 @@ void display_time(std::stringstream& ss, std::string const& usr_input)
     int count{};
 
     while (ss >> sch)
+    {
         if (count++ == 5)
-            std::cout << "It is " << sch.substr(sch.find('T') + 1, 8) << (ip_address(usr_input) ? " at " : " in ") << usr_input << '\n';
+        {
+            std::cout << "It is "
+                << sch.substr(sch.find('T') + 1, 8)
+                << (ip_address(usr_input) ? " at " : " in ")
+                << usr_input
+                << '\n';
+        }
+    }
 }
 
 std::string to_lower(std::string s)
@@ -116,7 +124,7 @@ std::string find_timezone(std::string const& usr_input)
 {
     if (ip_address(usr_input)) { return std::string{"/ip/"}.append(usr_input); }
 
-    for (timezn& a : timezns)
+    for (timezn const& a : timezns)
     {
         if (to_lower(a.name()) == to_lower(usr_input))
         {

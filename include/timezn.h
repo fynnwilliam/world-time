@@ -23,10 +23,10 @@ private:
 public:
     timezn values(std::string&);
     std::string sub_link() const;
-    std::string name() const { return name_; }
-    std::string region() const { return region_; }
-    std::string location() const { return location_; }
-    std::string area() const { return area_; }
+    inline std::string name() const { return name_; }
+    inline std::string region() const { return region_; }
+    inline std::string location() const { return location_; }
+    inline std::string area() const { return area_; }
 };
 
 void retrieve_time(int const&, char**);
