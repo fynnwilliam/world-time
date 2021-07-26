@@ -86,6 +86,8 @@ std::string time(std::stringstream& ss, std::string const& usr_input)
                 + usr_input;
         }
     }
+    
+    return std::string{"please update the app"};
 }
 
 void display_time(std::stringstream& ss, std::string const& usr_input)
