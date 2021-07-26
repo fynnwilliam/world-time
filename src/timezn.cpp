@@ -71,7 +71,7 @@ std::string url(std::string const& usr_input)
     return url;
 }
 
-void display_time(std::stringstream& ss, std::string const& usr_input)
+std::string time(std::stringstream& ss, std::string const& usr_input)
 {
     std::string sch;
     int count{};
@@ -80,13 +80,17 @@ void display_time(std::stringstream& ss, std::string const& usr_input)
     {
         if (count++ == 5)
         {
-            std::cout << "It is "
-                << sch.substr(sch.find('T') + 1, 8)
-                << (ip_address(usr_input) ? " at " : " in ")
-                << usr_input
-                << '\n';
+            return std::string{"It is "}
+                + sch.substr(sch.find('T') + 1, 8)
+                + (ip_address(usr_input) ? " at " : " in ")
+                + usr_input;
         }
     }
+}
+
+void display_time(std::stringstream& ss, std::string const& usr_input)
+{
+    std::cout << time(ss, usr_input) << std::endl;
 }
 
 std::string to_lower(std::string s)

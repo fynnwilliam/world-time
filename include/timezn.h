@@ -41,6 +41,7 @@ bool private_ip(std::string const&);
 bool public_ip(std::string const&);
 bool ip_address(std::string const&);
 std::string url(std::string const&);
+std::string time(std::stringstream&, std::string const&);
 std::string to_lower(std::string);
 std::string insert_slash(std::string);
 std::string ip(int const&, char**);
