@@ -59,23 +59,9 @@ std::string app::abbreviation(std::string const& a) const
     return std::string{" "} + a.substr(1, 3);
 }
 
-std::string app::_day(int d) const
-{
-    std::vector<std::string> week_days{"Sunday", "Monday", "Teusday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    
-    return week_days[d];
-}
-
 std::string app::day(std::string const& d) const
 {   
     return std::string{", "} + _day(std::stoi(d));
-}
-
-std::string app::_month(int m) const
-{
-    std::vector<std::string> months{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    
-    return months[m + 1];
 }
 
 std::string app::month(std::string const& m) const
