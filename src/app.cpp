@@ -71,9 +71,9 @@ std::string app::month(std::string const& m) const
 
 std::string app::date(std::string const& d) const
 {
-    std::string year{ d.substr(1, 4) };
-    std::string m{ d.substr(6, 2) };
-    std::string day{ d.substr(9, 2) };
+    std::string year{d.substr(1, 4)};
+    std::string m{d.substr(6, 2)};
+    std::string day{d.substr(9, 2)};
     
     return month(m) + day + ", " + year;
 }
