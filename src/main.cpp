@@ -1,10 +1,11 @@
-#include "timezn.h"
+#include "app.h"
 
 int main(int argc, char* argv[])
 {
     try
-    {   
-        retrieve_time(argc, argv);
+    {
+        app time(argc, argv);
+        time.tell();
     }
 
     catch (std::invalid_argument& e)
