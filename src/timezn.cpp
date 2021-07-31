@@ -74,19 +74,68 @@ std::string url(std::string const& usr_input)
     return url;
 }
 
-std::string time(std::stringstream& ss, std::string const& usr_input)
+std::string time(std::string const& t)
 {
+    return std::string{"It is "} + t.substr(t.find('T') + 1, 8);
+}
+
+std::string abbreviation(std::string const& a)
+{
+    return std::string{" "} + a.substr(1, 3);
+}
+
+std::string _day(int d)
+{
+    std::vector<std::string> week_days{"Sunday", "Monday", "Teusday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    
+    return week_days[d];
+}
+
+std::string day(std::string const& d)
+{   
+    return std::string{", "} + _day(std::stoi(d));
+}
+
+std::string _month(int m)
+{
+    std::vector<std::string> months{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    
+    return months[m + 1];
+}
+
+std::string month(std::string const& m)
+{
+    return _month(std::stoi(m));
+}
+
+std::string date(std::string const& d)
+{
+    std::string year{ d.substr(1, 4) };
+    std::string m{ d.substr(6, 2) };
+    std::string day{ d.substr(9, 2) };
+    
+    return month(m) + day + ", " + year;
+}
+
+std::string datetime(std::stringstream& ss, std::string const& usr_input)
+{
+    std::string datetime;
+    std::string abbr;
     std::string sch;
     int count{};
 
     while (ss >> sch)
     {
-        if (count++ == 5)
+        if (count++ == 1) { abbr = sch; }
+        if (count++ == 5) { datetime = sch; }
+        if (count++ == 7)
         {
-            return std::string{"It is "}
-                + sch.substr(sch.find('T') + 1, 8)
-                + (ip_address(usr_input) ? " at " : " in ")
-                + usr_input;
+            return time(datetime)
+                 + abbreviation(abbr)
+                 + day(sch)
+                 + date(datetime)
+                 + (ip_address(usr_input) ? " at " : " in ")
+                 + usr_input;
         }
     }
     
@@ -95,7 +144,7 @@ std::string time(std::stringstream& ss, std::string const& usr_input)
 
 void display_time(std::stringstream& ss, std::string const& usr_input)
 {
-    std::cout << time(ss, usr_input) << std::endl;
+    std::cout << datetime(ss, usr_input) << std::endl;
 }
 
 std::string to_lower(std::string s)
