@@ -20,8 +20,8 @@ private:
     std::stringstream fetched_;
     
     std::vector<timezn> timezns_;
-    std::vector<std::string> const week_days{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    std::vector<std::string> const months{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    std::vector<std::string> const week_days_{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    std::vector<std::string> const months_{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     
     bool private_a(std::string const&) const;
     bool private_b(std::string const&) const;
@@ -37,8 +37,8 @@ private:
     std::string time(std::string const&) const;
     std::string abbreviation(std::string const&) const;
     std::string day(std::string const&) const;
-    inline std::string _day(int d) const { return week_days[d]; }
-    inline std::string _month(int m) const { return months[m - 1]; }
+    inline std::string _day(int d) const { return week_days_[d]; }
+    inline std::string _month(int m) const { return months_[m - 1]; }
     std::string month(std::string const&) const;
     std::string date(std::string const&) const;
     void read_timezones();
@@ -48,7 +48,7 @@ private:
     void display_time();
     auto invalid_argc() const;
     auto not_avaliable() const;
-    
+
 public:
     app(int i, char** c) : argc_{i}, argv_{c} {}
     void tell();
