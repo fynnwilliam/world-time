@@ -49,19 +49,19 @@ void app::update_url()
     zone.empty() ? throw not_avaliable() : url_.append(zone).append(".txt");
 }
 
-std::string app::time(std::string const& t) const
+void app::time(std::string const& t)
 {
-    return std::string{"It is "} + t.substr(t.find('T') + 1, 8);
+    time_ = std::string{"It is "} + t.substr(t.find('T') + 1, 8);
 }
 
-std::string app::abbreviation(std::string const& a) const
+void app::abbreviation(std::string const& a)
 {
-    return std::string{" "} + a.substr(0, 3);
+    abbreviation_ = std::string{" "}.append(a);
 }
 
-std::string app::day(std::string const& d) const
+void app::day(std::string const& d)
 {   
-    return std::string{", "} + _day(std::stoi(d));
+    day_ = std::string{", "} + _day(std::stoi(d));
 }
 
 std::string app::month(std::string const& m) const
@@ -69,34 +69,38 @@ std::string app::month(std::string const& m) const
     return std::string{", "} + _month(std::stoi(m));
 }
 
-std::string app::date(std::string const& d) const
+void app::date(std::string const& d)
 {
     std::string year{d.substr(0, 4)};
     std::string m{d.substr(5, 2)};
     std::string day{d.substr(8, 2)};
     
-    return month(m) + ' ' + day + ", " + year;
+    date_ = month(m) + ' ' + day + ", " + year;
+}
+
+std::string app::preposition() const
+{
+    return ip_address(usr_input_) ? " at " : " in ";
+}
+
+std::string app::_datetime() const
+{
+    return time_ + abbreviation_ + day_ + date_ + preposition() + usr_input_;
 }
 
 std::string app::datetime()
 {
-    std::string datetime;
-    std::string abbr;
-    std::string sch;
+    std::string temp;
     int count{};
     
-    while (fetched_ >> sch)
+    while (fetched_ >> temp)
     {
-        if (count == 1) { abbr = sch; }
-        if (count == 5) { datetime = sch; }
+        if (count == 1) { abbreviation(temp); }
+        if (count == 5) { date(temp); time(temp); }
         if (count == 7)
         {
-            return time(datetime)
-                 + abbreviation(abbr)
-                 + day(sch)
-                 + date(datetime)
-                 + (ip_address(usr_input_) ? " at " : " in ")
-                 + usr_input_;
+            day(temp);
+            return _datetime();
         }
         count++;
     }
