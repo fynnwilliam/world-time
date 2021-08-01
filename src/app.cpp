@@ -56,7 +56,7 @@ std::string app::time(std::string const& t) const
 
 std::string app::abbreviation(std::string const& a) const
 {
-    return std::string{" "} + a.substr(1, 3);
+    return std::string{" "} + a.substr(0, 3);
 }
 
 std::string app::day(std::string const& d) const
@@ -66,16 +66,16 @@ std::string app::day(std::string const& d) const
 
 std::string app::month(std::string const& m) const
 {
-    return _month(std::stoi(m));
+    return std::string{", "} + _month(std::stoi(m));
 }
 
 std::string app::date(std::string const& d) const
 {
-    std::string year{d.substr(1, 4)};
-    std::string m{d.substr(6, 2)};
-    std::string day{d.substr(9, 2)};
+    std::string year{d.substr(0, 4)};
+    std::string m{d.substr(5, 2)};
+    std::string day{d.substr(8, 2)};
     
-    return month(m) + day + ", " + year;
+    return month(m) + ' ' + day + ", " + year;
 }
 
 std::string app::datetime()
@@ -84,12 +84,12 @@ std::string app::datetime()
     std::string abbr;
     std::string sch;
     int count{};
-
+    
     while (fetched_ >> sch)
     {
-        if (count++ == 1) { abbr = sch; }
-        if (count++ == 5) { datetime = sch; }
-        if (count++ == 7)
+        if (count == 1) { abbr = sch; }
+        if (count == 5) { datetime = sch; }
+        if (count == 7)
         {
             return time(datetime)
                  + abbreviation(abbr)
@@ -98,6 +98,7 @@ std::string app::datetime()
                  + (ip_address(usr_input_) ? " at " : " in ")
                  + usr_input_;
         }
+        count++;
     }
     
     return std::string{"please update the app"};
