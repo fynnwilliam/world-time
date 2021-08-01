@@ -12,7 +12,8 @@ FetchContent_MakeAvailable(curlpp)
 message(STATUS "Looking for curl")
 find_package(CURL 7.74.0)
 
-add_executable(time src/main.cpp src/timezn.cpp)
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
+add_executable(time ${SRC_FILES})
 
 target_include_directories(time PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(time PUBLIC CURL::libcurl -lcurlpp)
