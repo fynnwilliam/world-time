@@ -73,9 +73,9 @@ void app::date(std::string const& d)
 {
     std::string year{d.substr(0, 4)};
     std::string m{d.substr(5, 2)};
-    std::string day{d.substr(8, 2)};
+    int day{std::stoi(d.substr(8, 2))};
     
-    date_ = month(m) + ' ' + day + ", " + year;
+    date_ = month(m) + ' ' + std::to_string(day) + ", " + year;
 }
 
 std::string app::preposition() const
