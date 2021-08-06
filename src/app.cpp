@@ -84,9 +84,16 @@ std::string app::preposition() const
     return ip_address(usr_input_) ? " at " : " in ";
 }
 
-std::string app::_datetime() const
+std::string app::usr_input() const
 {
-    return time_ + abbreviation_ + day_ + date_ + preposition() + usr_input_;
+    std::string s{usr_input_};
+    std::replace(begin(s), end(s), '_', ' ');
+    return s;
+}
+
+std::string app::_datetime() const
+{   
+    return time_ + abbreviation_ + day_ + date_ + preposition() + usr_input();
 }
 
 std::string app::datetime()
