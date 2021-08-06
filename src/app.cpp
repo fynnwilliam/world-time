@@ -34,12 +34,13 @@ void app::check_arguments()
 
 void app::read_timezones()
 {
-    std::stringstream timezones(::timezones);
+    std::stringstream timezones{::timezones};
     std::string timezone;
 
     while (timezones >> timezone)
     {
-        timezns_.push_back(timezn().values(timezone));
+        timezn temp = timezn().values(timezone);
+        timezns_.insert({temp.name(), temp});
     }
 }
 
@@ -113,10 +114,10 @@ void app::display_time()
     std::cout << datetime() << std::endl;
 }
 
-std::string app::to_lower(std::string s)
+std::string app::capitalize(std::string s)
 {
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
-                  { return std::tolower(c); });
+    std::transform(s.begin(), s.begin() + 1, s.begin(), [](unsigned char c)
+                  { return std::toupper(c); });
     return s;
 }
 
@@ -130,10 +131,10 @@ std::string app::ip() const
     throw std::out_of_range("\"" + ip + "\" is not a public IP");
 }
 
-std::string app::location() const
+std::string app::location()
 {
-    std::string first = argv_[1];
-    std::string second = !argv_[2] ? std::string{} : argv_[2];
+    std::string first = capitalize(argv_[1]);
+    std::string second = !argv_[2] ? std::string{} : capitalize(argv_[2]);
 
     return second.empty() ? first : first.append('_' + second);
 }
@@ -142,15 +143,9 @@ std::string app::find_timezone()
 {
     if (ip_address(usr_input_)) { return std::string{"/ip/"}.append(usr_input_); }
 
-    for (timezn const& a : timezns_)
-    {
-        if (to_lower(a.name()) == to_lower(usr_input_))
-        {
-            return a.sub_link();
-        }
-    }
-
-    return std::string{};
+    auto timezone = timezns_.find(usr_input_);
+    
+    return timezone != timezns_.end() ? timezone->second.sub_link() : std::string{};
 }
 
 bool app::private_a(std::string const& ip) const

@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <exception>
+#include <unordered_map>
 
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Options.hpp>
@@ -22,8 +23,8 @@ private:
     std::string date_;
     std::string day_;
     std::stringstream fetched_;
-    
-    std::vector<timezn> timezns_;
+
+    std::unordered_map<std::string, timezn> timezns_;
     std::vector<std::string> const days_of_week_{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     std::vector<std::string> const months_{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     
@@ -34,9 +35,9 @@ private:
     bool public_ip(std::string const&) const;
     bool ip_address(std::string const&) const;
     std::string datetime();
-    std::string to_lower(std::string);
+    std::string capitalize(std::string);
     std::string ip() const;
-    std::string location() const;
+    std::string location();
     std::string find_timezone();
     std::string preposition() const;
     std::string _datetime() const;
