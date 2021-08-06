@@ -121,10 +121,24 @@ void app::display_time()
     std::cout << datetime() << std::endl;
 }
 
+void app::_transform(std::string& s, int index)
+{
+    std::transform(s.begin(), s.begin() + index, s.begin(), [](unsigned char c)
+                   { return std::toupper(c); });
+}
+
+std::string app::to_lower(std::string s)
+{
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
+                   { return std::tolower(c); });
+
+    return s;
+}
+
 std::string app::capitalize(std::string s)
 {
-    std::transform(s.begin(), s.begin() + 1, s.begin(), [](unsigned char c)
-                  { return std::toupper(c); });
+    to_lower(s.substr(0, 3)) == "gmt" ? _transform(s, 3) : _transform(s, 1);
+
     return s;
 }
 

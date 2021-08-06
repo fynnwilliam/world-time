@@ -36,12 +36,14 @@ private:
     bool ip_address(std::string const&) const;
     std::string datetime();
     std::string capitalize(std::string);
+    std::string to_lower(std::string);
     std::string ip() const;
     std::string location();
     std::string find_timezone();
     std::string preposition() const;
     std::string _datetime() const;
     std::string usr_input() const;
+    void _transform(std::string&, int);
     void time(std::string const&);
     void abbreviation(std::string const&);
     void day(std::string const&);
