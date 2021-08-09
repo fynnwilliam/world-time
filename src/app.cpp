@@ -160,13 +160,26 @@ std::string app::location()
     return second.empty() ? first : first.append('_' + second);
 }
 
+std::string& app::to_upper(std::string& s)
+{
+    std::transform(s.begin(), s.end() , s.begin(), [](unsigned char c)
+                  { return std::toupper(c); });
+    
+    return s;
+}
+
+std::string app::try_uppercase()
+{
+    auto T = timezns_.find(to_upper(usr_input_));
+    return T == timezns_.end() ? std::string{} : T->second.sub_link();
+}
+
 std::string app::find_timezone()
 {
     if (ip_address(usr_input_)) { return std::string{"/ip/"}.append(usr_input_); }
 
-    auto timezone = timezns_.find(usr_input_);
-    
-    return timezone != timezns_.end() ? timezone->second.sub_link() : std::string{};
+    auto t = timezns_.find(usr_input_);
+    return t == timezns_.end() ? try_uppercase() : t->second.sub_link();
 }
 
 bool app::private_a(std::string const& ip) const
