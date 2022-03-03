@@ -16,8 +16,8 @@ private:
 public:
     timezn values(std::string&);
     std::string sub_link() const;
-    inline std::string name() const { return name_; }
-    inline std::string region() const { return region_; }
-    inline std::string location() const { return location_; }
-    inline std::string area() const { return area_; }
+    inline auto const& name() const noexcept { return name_; }
+    inline auto const& region() const noexcept { return region_; }
+    inline auto const& location() const noexcept { return location_; }
+    inline auto const& area() const noexcept { return area_; }
 };
