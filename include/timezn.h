@@ -11,7 +11,7 @@ private:
     std::string location_;
     std::string area_;
     
-    std::string insert_slash(std::string) const;
+    std::string insert_slash(std::string const&) const;
 
 public:
     timezn values(std::string&);
