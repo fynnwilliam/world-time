@@ -13,5 +13,5 @@ private:
 public:
   timezns() { load(); }
 
-  auto find() const noexcept;
+  auto find(std::string const&) const noexcept;
 }
