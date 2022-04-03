@@ -1,6 +1,6 @@
 #include "timezns.h"
 
-void app::load() noexcept {
+void timezns::load() noexcept {
   std::stringstream timezones{::timezones};
   std::string timezone;
 
