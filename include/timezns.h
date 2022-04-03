@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "timezn.h"
 #include <unordered_map>
 
@@ -7,10 +8,10 @@ class timezns {
 private:
   std::unordered_map<std::string, timezn> timezns_;
 
-  load() noexcept;
+  void load() noexcept;
 
 public:
   timezns() { load(); }
 
-  find() const noexcept;
+  auto find() const noexcept;
 }
