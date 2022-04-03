@@ -6,7 +6,7 @@ timezn timezn::values(std::string& timezone)
     std::stringstream temp(timezone);
     temp >> region_ >> location_ >> area_;
 
-    name_ = area_ == location_ ? region_ : area_.size() == 0 ? location_ : area_;
+    name_ = area_ == location_ ? region_ : area_.empty() ? location_ : area_;
 
     return *this;
 }
