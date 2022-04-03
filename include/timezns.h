@@ -7,9 +7,10 @@ class timezns {
 private:
   std::unordered_map<std::string, timezn> timezns_;
 
-public:
-  timezns() { read_zones(); }
+  load() noexcept;
 
-  read_zones() noexcept;
+public:
+  timezns() { load(); }
+
   find() const noexcept;
 }
