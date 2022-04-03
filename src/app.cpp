@@ -6,11 +6,11 @@ void app::tell()
     check_arguments();
     read_timezones();
     update_url();
-    api_call();
+    fetch_time();
     display_time();
 }
 
-void app::api_call()
+void app::fetch_time()
 {
     fetched_ << curlpp::options::Url(url_);
 }

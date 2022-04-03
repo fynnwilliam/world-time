@@ -56,7 +56,7 @@ private:
     void read_timezones();
     void check_arguments();
     void update_url();
-    void api_call();
+    void fetch_time();
     void display_time();
     auto invalid_argc() const;
     auto not_avaliable() const;
