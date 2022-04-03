@@ -9,3 +9,8 @@ void timezns::load() noexcept {
     timezns_.insert({temp.name(), temp});
   }
 }
+
+auto timezns::find(std::string const& zone) const noexcept {
+  auto t = timezns_.find(zone);
+  return t == timezns_.end() ? try_uppercase() : t->second.sub_link();
+}
