@@ -10,10 +10,10 @@ private:
 
   void load() noexcept;
   auto &to_upper(std::string &) const noexcept;
-  auto try_uppercase(std::string &) const noexcept;
+  std::string try_uppercase(std::string &) const noexcept;
 
 public:
   timezns() { load(); }
 
-  auto find(std::string &) const noexcept;
+  std::string find(std::string &) const noexcept;
 };

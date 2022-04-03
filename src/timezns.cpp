@@ -11,7 +11,7 @@ void timezns::load() noexcept {
   }
 }
 
-auto timezns::find(std::string &zone) const noexcept {
+std::string timezns::find(std::string &zone) const noexcept {
   auto t = timezns_.find(zone);
   return t == timezns_.end() ? try_uppercase(zone) : t->second.sub_link();
 }
@@ -22,7 +22,7 @@ auto &timezns::to_upper(std::string &s) const noexcept {
   return s;
 }
 
-auto timezns::try_uppercase(std::string &zone) const noexcept {
+std::string timezns::try_uppercase(std::string &zone) const noexcept {
   auto t = timezns_.find(to_upper(zone));
   return t == timezns_.end() ? std::string{} : t->second.sub_link();
 }
