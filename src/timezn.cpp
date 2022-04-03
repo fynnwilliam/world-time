@@ -15,6 +15,6 @@ std::string timezn::sub_link() const {
          insert_slash(location()) + insert_slash(area());
 }
 
-std::string timezn::insert_slash(std::string const &item) const {
+std::string timezn::try_insert_slash(std::string const &item) const {
   return item.empty() ? item : '/' + item;
 }
