@@ -9,7 +9,7 @@
 #include <curlpp/Options.hpp>
 #include <curlpp/cURLpp.hpp>
 
-#include "timezn.h"
+#include "timezns.h"
 
 class app {
 private:
