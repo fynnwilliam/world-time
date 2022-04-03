@@ -37,7 +37,6 @@ private:
   bool private_ip(std::string const &) const;
   bool public_ip(std::string const &) const;
   bool ip_address(std::string const &) const;
-  std::string &to_upper(std::string &);
   std::string try_uppercase();
   std::string datetime();
   std::string capitalize(std::string);

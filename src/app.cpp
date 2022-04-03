@@ -132,13 +132,6 @@ std::string app::location() {
   return second.empty() ? first : first.append('_' + second);
 }
 
-std::string &app::to_upper(std::string &s) {
-  std::transform(s.begin(), s.end(), s.begin(),
-                 [](unsigned char c) { return std::toupper(c); });
-
-  return s;
-}
-
 std::string app::try_uppercase() {
   auto T = timezns_.find(to_upper(usr_input_));
   return T == timezns_.end() ? std::string{} : T->second.sub_link();
