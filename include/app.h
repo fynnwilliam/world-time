@@ -23,7 +23,7 @@ private:
   std::string day_;
   std::stringstream fetched_;
 
-  std::unordered_map<std::string, timezn> timezns_;
+  timezns timezns_;
   std::vector<std::string> const days_of_week_{
       "Sunday",   "Monday", "Tuesday", "Wednesday",
       "Thursday", "Friday", "Saturday"};
