@@ -20,3 +20,8 @@ auto &timezns::to_upper(std::string &s) const noexcept {
                  [](unsigned char c) { return std::toupper(c); });
   return s;
 }
+
+auto timezns::try_uppercase(std::string &zone) const noexcept {
+  auto t = timezns_.find(to_upper(zone));
+  return t == timezns_.end() ? std::string{} : t->second.sub_link();
+}

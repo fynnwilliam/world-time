@@ -132,11 +132,6 @@ std::string app::location() {
   return second.empty() ? first : first.append('_' + second);
 }
 
-std::string app::try_uppercase() {
-  auto T = timezns_.find(to_upper(usr_input_));
-  return T == timezns_.end() ? std::string{} : T->second.sub_link();
-}
-
 std::string app::find_timezone() {
   return ip_address(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
                                 : timezns_.find(usr_input_);

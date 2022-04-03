@@ -10,6 +10,7 @@ private:
 
   void load() noexcept;
   auto &to_upper(std::string &) const noexcept;
+  auto try_uppercase(std::string &) const noexcept;
 
 public:
   timezns() { load(); }
