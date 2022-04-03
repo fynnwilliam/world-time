@@ -1,5 +1,4 @@
 #include "app.h"
-#include "timezones.h"
 
 void app::tell() {
   check_arguments();
