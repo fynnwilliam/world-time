@@ -8,7 +8,7 @@ private:
   std::unordered_map<std::string, timezn> timezns_;
 
 public:
-  timezns() {}
+  timezns() { read_zones(); }
 
   read_zones() noexcept;
   find() const noexcept;
