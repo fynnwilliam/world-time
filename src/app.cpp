@@ -3,7 +3,6 @@
 
 void app::tell() {
   check_arguments();
-  read_timezones();
   update_url();
   fetch_time();
   display_time();
