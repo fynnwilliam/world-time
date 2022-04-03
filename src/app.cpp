@@ -145,12 +145,8 @@ std::string app::try_uppercase() {
 }
 
 std::string app::find_timezone() {
-  if (ip_address(usr_input_)) {
-    return std::string{"/ip/"}.append(usr_input_);
-  }
-
-  auto t = timezns_.find(usr_input_);
-  return t == timezns_.end() ? try_uppercase() : t->second.sub_link();
+  return ip_address(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
+                                : timezns_.find(usr_input_);
 }
 
 bool app::private_a(std::string const &ip) const {
