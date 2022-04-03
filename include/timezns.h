@@ -16,4 +16,4 @@ public:
   timezns() { load(); }
 
   auto find(std::string &) const noexcept;
-}
+};
