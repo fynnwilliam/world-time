@@ -10,5 +10,6 @@ private:
 public:
   timezns() {}
 
+  read_zones() noexcept;
   find() const noexcept;
 }

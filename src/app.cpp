@@ -27,16 +27,6 @@ void app::check_arguments() {
   usr_input_ = ip_address(argv_[1]) ? ip() : location();
 }
 
-void app::read_timezones() {
-  std::stringstream timezones{::timezones};
-  std::string timezone;
-
-  while (timezones >> timezone) {
-    timezn temp = timezn().values(timezone);
-    timezns_.insert({temp.name(), temp});
-  }
-}
-
 void app::update_url() {
   std::string zone{find_timezone()};
   zone.empty() ? throw not_avaliable() : url_.append(zone).append(".txt");

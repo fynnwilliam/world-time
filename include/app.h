@@ -56,7 +56,6 @@ private:
   inline std::string _month(int m) const { return months_[m - 1]; }
   std::string month(std::string const &) const;
   void date(std::string const &);
-  void read_timezones();
   void check_arguments();
   void update_url();
   void fetch_time();
