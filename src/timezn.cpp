@@ -11,8 +11,8 @@ timezn timezn::values(std::string &timezone) {
 }
 
 std::string timezn::sub_link() const {
-  return std::string{"/timezone"} + insert_slash(region()) +
-         insert_slash(location()) + insert_slash(area());
+  return std::string{"/timezone"} + try_insert_slash(region()) +
+         try_insert_slash(location()) + try_insert_slash(area());
 }
 
 std::string timezn::try_insert_slash(std::string const &item) const {
