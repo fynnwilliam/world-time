@@ -44,7 +44,6 @@ private:
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
-  auto day(std::string const &);
   inline std::string _day(int d) const { return days_of_week_[d]; }
   inline std::string _month(int m) const { return months_[m - 1]; }
   std::string month(std::string const &) const;
