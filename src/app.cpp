@@ -9,7 +9,7 @@ void app::tell(int argc, char **argv) {
 }
 
 status_code app::fetch_time() {
-  std::string url{update_url};
+  std::string url{update_url()};
   return url.empty() ? zone_unavailable() : fetch(url);
 }
 
