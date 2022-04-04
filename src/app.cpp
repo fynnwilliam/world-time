@@ -24,7 +24,7 @@ void app::check_arguments(int argc, char **argv) {
     throw invalid_argc();
   }
 
-  usr_input_ = ip_address(argv[1]) ? ip(argc, argc) : location(argv);
+  usr_input_ = ip_address(argv[1]) ? ip(argc, argv) : location(argv);
 }
 
 void app::update_url() {
