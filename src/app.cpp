@@ -1,4 +1,5 @@
 #include "app.h"
+#include "day.h"
 
 void app::tell() {
   check_arguments();
@@ -61,7 +62,7 @@ std::string app::usr_input() const {
 }
 
 std::string app::datetime() {
-  std::string temp, t, abbr, dt;
+  std::string temp, t, abbr, d;
   int count{};
 
   while (fetched_ >> temp) {
@@ -69,11 +70,12 @@ std::string app::datetime() {
       abbr = abbreviation(temp);
     }
     if (count == 5) {
-      dt =  date(temp);
+      d = date(temp);
       t = time(temp);
     }
     if (count == 7) {
-      return t + abbr + day(temp) + dt + preposition() + usr_input();
+      return t + abbr + day{}[std::stoi(temp)] + d + preposition() +
+             usr_input();
     }
     count++;
   }
