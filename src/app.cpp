@@ -8,15 +8,11 @@ void app::tell(int argc, char **argv) {
   display_time();
 }
 
-status app::fetch_time() {
-  std::string url{_url()};
-  return url.empty() ? zone_unavailable() : fetch(url);
-}
-
 auto app::fetch(std::string const &url) {
   try {
-    fetched_ << curlpp::options::Url(url)
-  } catch (curlpp::RuntimeError &e) {
+    fetched_ << curlpp::options::Url(url);
+  }
+catch (curlpp::RuntimeError &e) {
     using namespace std::string_literals;
     return status{1, e.what() + "\nplease check your internet connection\n"s};
   }
@@ -40,6 +36,26 @@ auto app::invalid(char **argv) const noexcept {
 
 auto app::zone_unavailable() const noexcept {
   return status{1, "timezone not found\n"};
+}
+
+status app::fetch_time() {
+  std::string url{_url()};
+  return url.empty() ? zone_unavailable() : fetch(url);
+}
+
+status app::ip(char **argv) {
+  return public_ip(usr_input_ = argv[1])
+             ? status{}
+             : status{1, "\"" + usr_input_ + "\" is not a public IP\n"};
+}
+
+auto app::location(char **argv) noexcept {
+  auto first = capitalize(argv[1]);
+  auto last = !argv[2] ? std::string{} : capitalize(argv[2]);
+
+  usr_input_ = last.empty() ? first : first.append('_' + last);
+
+  return status{};
 }
 
 status app::assign_input(int argc, char **argv) {
@@ -127,21 +143,6 @@ std::string app::capitalize(std::string s) {
   to_lower(s.substr(0, 3)) == "gmt" ? _transform(s, 3) : _transform(s, 1);
 
   return s;
-}
-
-status app::ip(char **argv) {
-  return public_ip(usr_input_ = argv[1])
-             ? status{}
-             : status{1, "\"" + usr_input_ + "\" is not a public IP\n"};
-}
-
-status app::location(char **argv) noexcept {
-  auto first = capitalize(argv[1]);
-  auto last = !argv[2] ? std::string{} : capitalize(argv[2]);
-
-  usr_input_ = last.empty() ? first : first.append('_' + last);
-
-  return status{};
 }
 
 std::string app::find_timezone() {
