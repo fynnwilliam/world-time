@@ -45,6 +45,5 @@ private:
   auto not_avaliable() const;
 
 public:
-  app(int i, char **c) : argc_{i}, argv_{c} {}
   void tell(int, char **);
 };
