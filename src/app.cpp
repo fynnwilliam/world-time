@@ -3,7 +3,7 @@
 #include "month.h"
 
 void app::tell(int argc, char **argv) {
-  check_arguments();
+  check_arguments(argc, argv);
   update_url();
   fetch_time();
   display_time();
@@ -19,7 +19,7 @@ auto app::not_avaliable() const {
   return std::range_error("timezone not found");
 }
 
-void app::check_arguments() {
+void app::check_arguments(int argc, char **argv) {
   if (argc_ > 3 || argc_ == 1) {
     throw invalid_argc();
   }

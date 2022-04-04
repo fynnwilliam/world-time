@@ -39,7 +39,7 @@ private:
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto date(std::string const &);
-  void check_arguments();
+  void check_arguments(int, char **);
   void update_url();
   void fetch_time();
   void display_time();
