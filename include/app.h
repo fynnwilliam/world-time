@@ -32,12 +32,12 @@ private:
   std::string preposition() const;
   std::string usr_input() const;
   std::string update_url();
+  status_code fetch_time();
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto date(std::string const &);
   void check_arguments(int, char **);
-  void fetch_time();
   void display_time();
   auto invalid_argc() const;
   auto not_avaliable() const;

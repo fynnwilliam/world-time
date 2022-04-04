@@ -9,7 +9,10 @@ void app::tell(int argc, char **argv) {
   display_time();
 }
 
-void app::fetch_time() { fetched_ << curlpp::options::Url(url_); }
+status_code app::fetch_time() {
+  std::string url{update_url};
+  return url.empty() ? zone_unavaliable() : fetch(url);
+}
 
 auto app::invalid_argc() const {
   return std::invalid_argument("invalid number of arguments");
