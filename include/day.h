@@ -10,7 +10,7 @@ private:
                                        "Saturday"};
 
 public:
-  std::string const &operator[](std::size_t day) const noexcept {
+  std::string operator[](std::size_t day) const noexcept {
     return day < days_.size() ? std::string{", "} + days_[day]
                               : std::string{", Unknown_day"};
   }
