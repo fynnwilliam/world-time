@@ -19,10 +19,6 @@ int main(int argc, char *argv[]) {
     std::cout << e.what() << std::endl;
   }
 
-  catch (std::range_error &e) {
-    std::cout << e.what() << std::endl;
-  }
-
   catch (curlpp::RuntimeError &e) {
     std::cout << e.what() << "\nplease check your internet connection"
               << std::endl;
