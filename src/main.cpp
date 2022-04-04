@@ -2,8 +2,8 @@
 
 int main(int argc, char *argv[]) {
   try {
-    app time(argc, argv);
-    time.tell();
+    app time{};
+    time.tell(argc, argv);
   }
 
   catch (std::invalid_argument &e) {
