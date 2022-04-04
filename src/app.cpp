@@ -1,5 +1,6 @@
 #include "app.h"
 #include "day.h"
+#include "month.h"
 
 void app::tell() {
   check_arguments();
@@ -44,7 +45,7 @@ auto app::date(std::string const &d) {
   std::string m{d.substr(5, 2)};
   int day{std::stoi(d.substr(8, 2))};
 
-  return month(m) + ' ' + std::to_string(day) + ", " + year;
+  return month{}[std::stoi(m)] + ' ' + std::to_string(day) + ", " + year;
 }
 
 std::string app::preposition() const {
