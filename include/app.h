@@ -52,7 +52,7 @@ private:
   inline std::string _day(int d) const { return days_of_week_[d]; }
   inline std::string _month(int m) const { return months_[m - 1]; }
   std::string month(std::string const &) const;
-  void date(std::string const &);
+  auto date(std::string const &);
   void check_arguments();
   void update_url();
   void fetch_time();

@@ -46,12 +46,12 @@ std::string app::month(std::string const &m) const {
   return std::string{", "} + _month(std::stoi(m));
 }
 
-void app::date(std::string const &d) {
+auto app::date(std::string const &d) {
   std::string year{d.substr(0, 4)};
   std::string m{d.substr(5, 2)};
   int day{std::stoi(d.substr(8, 2))};
 
-  date_ = month(m) + ' ' + std::to_string(day) + ", " + year;
+  return month(m) + ' ' + std::to_string(day) + ", " + year;
 }
 
 std::string app::preposition() const {
