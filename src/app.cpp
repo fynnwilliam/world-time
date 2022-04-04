@@ -4,7 +4,6 @@
 
 void app::tell(int argc, char **argv) {
   check_arguments(argc, argv);
-  update_url();
   fetch_time();
   display_time();
 }
