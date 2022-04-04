@@ -32,7 +32,7 @@ private:
   std::string usr_input() const;
   std::string _url();
   status fetch_time();
-  status check_arguments(int, char **);
+  status assign_input(int, char **);
   status display_time();
   auto location(char **) noexcept;
   auto fetch(std::string const &);
