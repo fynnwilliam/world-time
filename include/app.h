@@ -40,7 +40,7 @@ private:
   auto abbreviation(std::string const &);
   auto date(std::string const &);
   void display_time();
-  auto invalid_argc() const;
+  auto invalid(char **) const noexcept;
   auto zone_unavailable() const noexcept;
 
 public:

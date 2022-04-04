@@ -24,8 +24,16 @@ auto app::fetch(std::string const &url) {
   return status_code{};
 }
 
-auto app::invalid_argc() const {
-  return std::invalid_argument("invalid number of arguments");
+auto app::invalid(char **argv) const noexcept {
+  auto program = argv[0];
+  std::cout << "invalid number of arguments"
+            << "\nplease call with a specific location, region or IP"
+            << "\neg.1: " << program << " Los Angeles"
+            << "\neg.2: " << program << " Salta"
+            << "\neg.3: " << program << " GMT+2"
+            << "\neg.4: " << program << " 8.8.8.8\n";
+
+  return status_code{1};
 }
 
 auto app::zone_unavailable() const noexcept {
