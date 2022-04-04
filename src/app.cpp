@@ -30,8 +30,8 @@ void app::update_url() {
   zone.empty() ? throw not_avaliable() : url_.append(zone).append(".txt");
 }
 
-void app::time(std::string const &t) {
-  time_ = std::string{"It is "} + t.substr(t.find('T') + 1, 8);
+auto app::time(std::string const &t) {
+  return std::string{"It is "} + t.substr(t.find('T') + 1, 8);
 }
 
 auto app::abbreviation(std::string const &a) {
