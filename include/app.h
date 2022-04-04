@@ -45,7 +45,6 @@ private:
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   inline std::string _month(int m) const { return months_[m - 1]; }
-  std::string month(std::string const &) const;
   auto date(std::string const &);
   void check_arguments();
   void update_url();

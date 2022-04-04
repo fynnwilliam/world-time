@@ -39,10 +39,6 @@ auto app::abbreviation(std::string const &a) {
   return std::string{" "}.append(a);
 }
 
-std::string app::month(std::string const &m) const {
-  return std::string{", "} + _month(std::stoi(m));
-}
-
 auto app::date(std::string const &d) {
   std::string year{d.substr(0, 4)};
   std::string m{d.substr(5, 2)};
