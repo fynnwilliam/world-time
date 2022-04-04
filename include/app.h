@@ -47,7 +47,7 @@ private:
   std::string usr_input() const;
   void _transform(std::string &, int);
   void time(std::string const &);
-  void abbreviation(std::string const &);
+  auto abbreviation(std::string const &);
   void day(std::string const &);
   inline std::string _day(int d) const { return days_of_week_[d]; }
   inline std::string _month(int m) const { return months_[m - 1]; }

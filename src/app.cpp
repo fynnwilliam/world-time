@@ -34,8 +34,8 @@ void app::time(std::string const &t) {
   time_ = std::string{"It is "} + t.substr(t.find('T') + 1, 8);
 }
 
-void app::abbreviation(std::string const &a) {
-  abbreviation_ = std::string{" "}.append(a);
+auto app::abbreviation(std::string const &a) {
+  return std::string{" "}.append(a);
 }
 
 void app::day(std::string const &d) {
