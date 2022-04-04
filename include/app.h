@@ -30,7 +30,7 @@ private:
   std::string datetime();
   std::string capitalize(std::string);
   std::string to_lower(std::string);
-  std::string ip() const;
+  std::string ip(int, char **) const;
   std::string location();
   std::string find_timezone();
   std::string preposition() const;

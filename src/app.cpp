@@ -100,7 +100,7 @@ std::string app::capitalize(std::string s) {
   return s;
 }
 
-std::string app::ip() const {
+std::string app::ip(int argc, char **argv) const {
   if (argc_ > 2) {
     throw invalid_argc();
   }
