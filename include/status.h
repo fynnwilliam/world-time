@@ -4,7 +4,7 @@
 
 class status {
 private:
-  int code_ {}
+  int code_ {};
   std::string_view message_;
 
 public:
@@ -14,7 +14,7 @@ public:
   status(int i, std::string_view m) : code_{i}, message_{std::move(m)} {}
 
   operator bool() const noexcept {
-    std::cout << message;
+    std::cout << message_;
     return code_ == 0;
   }
 };
