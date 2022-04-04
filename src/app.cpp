@@ -87,14 +87,15 @@ std::string app::datetime() {
   int count{};
 
   while (fetched_ >> temp) {
-    if (count == 1) {
+    switch (count) {
+    case 1:
       abbr = abbreviation(temp);
-    }
-    if (count == 5) {
+      break;
+    case 5:
       d = date(temp);
       t = time(temp);
-    }
-    if (count == 7) {
+      break;
+    case 7:
       return t + abbr + day{}[std::stoi(temp)] + d + preposition() +
              usr_input().append({'\n'});
     }
