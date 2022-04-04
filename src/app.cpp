@@ -69,20 +69,19 @@ std::string app::_datetime() const {
 }
 
 std::string app::datetime() {
-  std::string temp;
+  std::string temp, t, abbr, dt;
   int count{};
 
   while (fetched_ >> temp) {
     if (count == 1) {
-      abbreviation(temp);
+      abbr = abbreviation(temp);
     }
     if (count == 5) {
-      date(temp);
-      time(temp);
+      dt =  date(temp);
+      t = time(temp);
     }
     if (count == 7) {
-      day(temp);
-      return _datetime();
+      return t + abbr + day(temp) + dt + preposition() + usr_input();
     }
     count++;
   }
