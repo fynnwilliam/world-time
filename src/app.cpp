@@ -123,17 +123,10 @@ std::string app::capitalize(std::string s) {
   return s;
 }
 
-std::string app::ip(int argc, char **argv) const {
-  if (argc > 2) {
-    throw invalid_argc();
-  }
-
-  std::string ip{argv[1]};
-
-  if (public_ip(ip)) {
-    return ip;
-  }
-  throw std::out_of_range("\"" + ip + "\" is not a public IP");
+status_code app::ip(char **argv) {
+  return public_ip(usr_input_ = argv[1])
+             ? status_code{}
+             : status_code{1, "\"" + usr_input_ + "\" is not a public IP\n"};
 }
 
 std::string app::location(char **argv) noexcept {
