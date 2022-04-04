@@ -129,11 +129,13 @@ status_code app::ip(char **argv) {
              : status_code{1, "\"" + usr_input_ + "\" is not a public IP\n"};
 }
 
-std::string app::location(char **argv) noexcept {
-  std::string first = capitalize(argv[1]);
-  std::string second = !argv[2] ? std::string{} : capitalize(argv[2]);
+status_code app::location(char **argv) noexcept {
+  auto first = capitalize(argv[1]);
+  auto last = !argv[2] ? std::string{} : capitalize(argv[2]);
 
-  return second.empty() ? first : first.append('_' + second);
+  usr_input_ = last.empty() ? first : first.append('_' + last);
+  
+  return status_code{};
 }
 
 std::string app::find_timezone() {
