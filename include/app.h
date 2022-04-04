@@ -48,5 +48,5 @@ private:
 
 public:
   app(int i, char **c) : argc_{i}, argv_{c} {}
-  void tell();
+  void tell(int, char **);
 };

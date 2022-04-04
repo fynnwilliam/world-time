@@ -2,7 +2,7 @@
 #include "day.h"
 #include "month.h"
 
-void app::tell() {
+void app::tell(int argc, char **argv) {
   check_arguments();
   update_url();
   fetch_time();
