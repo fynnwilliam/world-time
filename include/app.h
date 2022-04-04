@@ -33,12 +33,12 @@ private:
   std::string usr_input() const;
   std::string _url();
   status_code fetch_time();
+  status_code check_arguments(int, char **);
   auto fetch(std::string const &)
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto date(std::string const &);
-  void check_arguments(int, char **);
   void display_time();
   auto invalid_argc() const;
   auto zone_unavailable() const noexcept;

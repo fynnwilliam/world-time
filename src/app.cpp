@@ -33,12 +33,11 @@ auto app::zone_unavailable() const noexcept {
   return status_code{1};
 }
 
-void app::check_arguments(int argc, char **argv) {
-  if (argc > 3 || argc == 1) {
-    throw invalid_argc();
-  }
-
-  usr_input_ = ip_address(argv[1]) ? ip(argc, argv) : location(argv);
+status_code app::check_arguments(int argc, char **argv) {
+  return argc > 3 || argc == 1  ? invalid(argv)
+         : !ip_address(argv[1]) ? location(argv)
+         : argc > 2             ? invalid(argv)
+                                : ip(argv);
 }
 
 std::string app::_url() {
