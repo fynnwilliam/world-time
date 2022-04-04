@@ -46,7 +46,7 @@ private:
   std::string preposition() const;
   std::string usr_input() const;
   void _transform(std::string &, int);
-  void time(std::string const &);
+  auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto day(std::string const &);
   inline std::string _day(int d) const { return days_of_week_[d]; }
