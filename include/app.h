@@ -31,12 +31,12 @@ private:
   std::string find_timezone();
   std::string preposition() const;
   std::string usr_input() const;
+  std::string update_url();
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto date(std::string const &);
   void check_arguments(int, char **);
-  void update_url();
   void fetch_time();
   void display_time();
   auto invalid_argc() const;

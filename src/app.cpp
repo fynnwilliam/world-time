@@ -27,9 +27,11 @@ void app::check_arguments(int argc, char **argv) {
   usr_input_ = ip_address(argv[1]) ? ip(argc, argv) : location(argv);
 }
 
-void app::update_url() {
+std::string app::update_url() {
+  std::string url{"http://worldtimeapi.org/api"};
+
   std::string zone{find_timezone()};
-  zone.empty() ? throw not_avaliable() : url_.append(zone).append(".txt");
+  return zone.empty() ? zone : url.append(zone).append(".txt");
 }
 
 auto app::time(std::string const &t) {
