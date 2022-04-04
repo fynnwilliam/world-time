@@ -12,7 +12,6 @@
 class app {
 private:
   std::string usr_input_;
-  std::string url_{"http://worldtimeapi.org/api"};
   std::stringstream fetched_;
 
   timezns timezns_;
