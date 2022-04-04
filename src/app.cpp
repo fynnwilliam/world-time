@@ -20,11 +20,11 @@ auto app::not_avaliable() const {
 }
 
 void app::check_arguments(int argc, char **argv) {
-  if (argc_ > 3 || argc_ == 1) {
+  if (argc > 3 || argc == 1) {
     throw invalid_argc();
   }
 
-  usr_input_ = ip_address(argv_[1]) ? ip() : location();
+  usr_input_ = ip_address(argv[1]) ? ip(argc, argc) : location(argv);
 }
 
 void app::update_url() {
@@ -101,11 +101,11 @@ std::string app::capitalize(std::string s) {
 }
 
 std::string app::ip(int argc, char **argv) const {
-  if (argc_ > 2) {
+  if (argc > 2) {
     throw invalid_argc();
   }
 
-  std::string ip{argv_[1]};
+  std::string ip{argv[1]};
 
   if (public_ip(ip)) {
     return ip;
@@ -114,8 +114,8 @@ std::string app::ip(int argc, char **argv) const {
 }
 
 std::string app::location(char **argv) noexcept {
-  std::string first = capitalize(argv_[1]);
-  std::string second = !argv_[2] ? std::string{} : capitalize(argv_[2]);
+  std::string first = capitalize(argv[1]);
+  std::string second = !argv[2] ? std::string{} : capitalize(argv[2]);
 
   return second.empty() ? first : first.append('_' + second);
 }
