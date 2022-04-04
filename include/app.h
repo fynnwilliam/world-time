@@ -1,13 +1,11 @@
 #pragma once
-#include <exception>
-#include <iostream>
-#include <regex>
-#include <unordered_map>
-#include <vector>
 
 #include <curlpp/Exception.hpp>
 #include <curlpp/Options.hpp>
 #include <curlpp/cURLpp.hpp>
+#include <exception>
+#include <iostream>
+#include <regex>
 
 #include "timezns.h"
 
