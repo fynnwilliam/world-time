@@ -31,7 +31,7 @@ private:
   std::string capitalize(std::string);
   std::string to_lower(std::string);
   std::string ip(int, char **) const;
-  std::string location();
+  std::string location(char **) noexcept;
   std::string find_timezone();
   std::string preposition() const;
   std::string usr_input() const;

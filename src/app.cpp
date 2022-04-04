@@ -113,7 +113,7 @@ std::string app::ip(int argc, char **argv) const {
   throw std::out_of_range("\"" + ip + "\" is not a public IP");
 }
 
-std::string app::location() {
+std::string app::location(char **argv) noexcept {
   std::string first = capitalize(argv_[1]);
   std::string second = !argv_[2] ? std::string{} : capitalize(argv_[2]);
 
