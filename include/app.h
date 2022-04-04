@@ -44,7 +44,6 @@ private:
   std::string location();
   std::string find_timezone();
   std::string preposition() const;
-  std::string _datetime() const;
   std::string usr_input() const;
   void _transform(std::string &, int);
   void time(std::string const &);

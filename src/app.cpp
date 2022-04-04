@@ -64,10 +64,6 @@ std::string app::usr_input() const {
   return s;
 }
 
-std::string app::_datetime() const {
-  return time_ + abbreviation_ + day_ + date_ + preposition() + usr_input();
-}
-
 std::string app::datetime() {
   std::string temp, t, abbr, dt;
   int count{};
