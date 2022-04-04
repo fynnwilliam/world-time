@@ -20,12 +20,6 @@ private:
   std::stringstream fetched_;
 
   timezns timezns_;
-  std::vector<std::string> const days_of_week_{
-      "Sunday",   "Monday", "Tuesday", "Wednesday",
-      "Thursday", "Friday", "Saturday"};
-  std::vector<std::string> const months_{
-      "January", "February", "March",     "April",   "May",      "June",
-      "July",    "August",   "September", "October", "November", "December"};
 
   bool private_a(std::string const &) const;
   bool private_b(std::string const &) const;
