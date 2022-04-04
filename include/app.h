@@ -40,7 +40,7 @@ private:
   void check_arguments(int, char **);
   void display_time();
   auto invalid_argc() const;
-  auto not_avaliable() const;
+  auto zone_unavailable() const noexcept;
 
 public:
   void tell(int, char **);

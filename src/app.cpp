@@ -11,15 +11,16 @@ void app::tell(int argc, char **argv) {
 
 status_code app::fetch_time() {
   std::string url{update_url};
-  return url.empty() ? zone_unavaliable() : fetch(url);
+  return url.empty() ? zone_unavailable() : fetch(url);
 }
 
 auto app::invalid_argc() const {
   return std::invalid_argument("invalid number of arguments");
 }
 
-auto app::not_avaliable() const {
-  return std::range_error("timezone not found");
+auto app::zone_unavailable() const noexcept {
+  std::cout << "timezone not found\n";
+  return status_code{1};
 }
 
 void app::check_arguments(int argc, char **argv) {
