@@ -13,8 +13,6 @@
 
 class app {
 private:
-  int argc_{};
-  char **argv_;
   std::string usr_input_;
   std::string url_{"http://worldtimeapi.org/api"};
   std::stringstream fetched_;
