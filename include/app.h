@@ -17,10 +17,6 @@ private:
   char **argv_;
   std::string usr_input_;
   std::string url_{"http://worldtimeapi.org/api"};
-  std::string abbreviation_;
-  std::string time_;
-  std::string date_;
-  std::string day_;
   std::stringstream fetched_;
 
   timezns timezns_;
