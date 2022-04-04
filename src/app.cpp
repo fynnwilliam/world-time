@@ -8,7 +8,7 @@ void app::tell(int argc, char **argv) {
   display_time();
 }
 
-status_code app::fetch_time() {
+status app::fetch_time() {
   std::string url{_url()};
   return url.empty() ? zone_unavailable() : fetch(url);
 }
@@ -17,31 +17,32 @@ auto app::fetch(std::string const &url) {
   try {
     fetched_ << curlpp::options::Url(url)
   } catch (curlpp::RuntimeError &e) {
-    std::cout << e.what() << "\nplease check your internet connection\n";
-    return status_code{1};
+    using namespace std::string_literals;
+    return status{1, e.what() + "\nplease check your internet connection\n"s};
   }
 
-  return status_code{};
+  return status{};
 }
 
 auto app::invalid(char **argv) const noexcept {
-  auto program = argv[0];
-  std::cout << "invalid number of arguments"
-            << "\nplease call with a specific location, region or IP"
-            << "\neg.1: " << program << " Los Angeles"
-            << "\neg.2: " << program << " Salta"
-            << "\neg.3: " << program << " GMT+2"
-            << "\neg.4: " << program << " 8.8.8.8\n";
+  using namespace std::string_literals;
 
-  return status_code{1};
+  auto program = argv[0];
+  auto message = "invalid number of arguments"
+                 "\nplease call with a specific location, region or IP"s
+                     .append("\neg.1: "s + program + " Los Angeles")
+                     .append("\neg.2: "s + program + " Salta")
+                     .append("\neg.3: "s + program + " GMT+2")
+                     .append("\neg.4: "s + program + " 8.8.8.8\n");
+
+  return status{1, std::move(message)};
 }
 
 auto app::zone_unavailable() const noexcept {
-  std::cout << "timezone not found\n";
-  return status_code{1};
+  return status{1, "timezone not found\n"};
 }
 
-status_code app::check_arguments(int argc, char **argv) {
+status app::check_arguments(int argc, char **argv) {
   return argc > 3 || argc == 1  ? invalid(argv)
          : !ip_address(argv[1]) ? location(argv)
          : argc > 2             ? invalid(argv)
@@ -123,19 +124,19 @@ std::string app::capitalize(std::string s) {
   return s;
 }
 
-status_code app::ip(char **argv) {
+status app::ip(char **argv) {
   return public_ip(usr_input_ = argv[1])
-             ? status_code{}
-             : status_code{1, "\"" + usr_input_ + "\" is not a public IP\n"};
+             ? status{}
+             : status{1, "\"" + usr_input_ + "\" is not a public IP\n"};
 }
 
-status_code app::location(char **argv) noexcept {
+status app::location(char **argv) noexcept {
   auto first = capitalize(argv[1]);
   auto last = !argv[2] ? std::string{} : capitalize(argv[2]);
 
   usr_input_ = last.empty() ? first : first.append('_' + last);
-  
-  return status_code{};
+
+  return status{};
 }
 
 std::string app::find_timezone() {

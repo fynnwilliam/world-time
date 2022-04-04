@@ -7,7 +7,7 @@
 #include <iostream>
 #include <regex>
 
-#include "status_code"
+#include "status.h"
 #include "timezns.h"
 
 class app {
@@ -26,15 +26,15 @@ private:
   std::string datetime();
   std::string capitalize(std::string);
   std::string to_lower(std::string);
-  status_code ip(char **);
+  status ip(char **);
   std::string find_timezone();
   std::string preposition() const;
   std::string usr_input() const;
   std::string _url();
-  status_code fetch_time();
-  status_code check_arguments(int, char **);
+  status fetch_time();
+  status check_arguments(int, char **);
   auto location(char **) noexcept;
-  auto fetch(std::string const &)
+  auto fetch(std::string const &);
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
