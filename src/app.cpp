@@ -104,7 +104,11 @@ std::string app::datetime() {
   return std::string{"please update the app"};
 }
 
-void app::display_time() { std::cout << datetime() << std::endl; }
+status app::display_time() {
+  auto result = datetime();
+  return result.empty() ? status{1, "please update the app\n"}
+                        : status{std::move(result)};
+}
 
 void app::_transform(std::string &s, int index) {
   std::transform(s.begin(), s.begin() + index, s.begin(),

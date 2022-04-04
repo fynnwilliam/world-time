@@ -33,13 +33,13 @@ private:
   std::string _url();
   status fetch_time();
   status check_arguments(int, char **);
+  status display_time();
   auto location(char **) noexcept;
   auto fetch(std::string const &);
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
   auto date(std::string const &);
-  void display_time();
   auto invalid(char **) const noexcept;
   auto zone_unavailable() const noexcept;
 
