@@ -96,12 +96,12 @@ std::string app::datetime() {
     }
     if (count == 7) {
       return t + abbr + day{}[std::stoi(temp)] + d + preposition() +
-             usr_input();
+             usr_input().append({'\n'});
     }
     count++;
   }
 
-  return std::string{"please update the app"};
+  return {};
 }
 
 status app::display_time() {
