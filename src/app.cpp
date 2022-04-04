@@ -9,7 +9,7 @@ void app::tell(int argc, char **argv) {
 }
 
 status_code app::fetch_time() {
-  std::string url{update_url()};
+  std::string url{_url()};
   return url.empty() ? zone_unavailable() : fetch(url);
 }
 
@@ -41,7 +41,7 @@ void app::check_arguments(int argc, char **argv) {
   usr_input_ = ip_address(argv[1]) ? ip(argc, argv) : location(argv);
 }
 
-std::string app::update_url() {
+std::string app::_url() {
   std::string url{"http://worldtimeapi.org/api"};
 
   std::string zone{find_timezone()};

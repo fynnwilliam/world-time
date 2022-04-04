@@ -31,7 +31,7 @@ private:
   std::string find_timezone();
   std::string preposition() const;
   std::string usr_input() const;
-  std::string update_url();
+  std::string _url();
   status_code fetch_time();
   auto fetch(std::string const &)
   void _transform(std::string &, int);
