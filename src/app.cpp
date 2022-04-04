@@ -14,6 +14,17 @@ status_code app::fetch_time() {
   return url.empty() ? zone_unavailable() : fetch(url);
 }
 
+auto app::fetch(std::string const &url) {
+  try {
+    fetched_ << curlpp::options::Url(url)
+  } catch (curlpp::RuntimeError &e) {
+    std::cout << e.what() << "\nplease check your internet connection\n";
+    return status_code{1};
+  }
+
+  return status_code{};
+}
+
 auto app::invalid_argc() const {
   return std::invalid_argument("invalid number of arguments");
 }

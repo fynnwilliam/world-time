@@ -33,6 +33,7 @@ private:
   std::string usr_input() const;
   std::string update_url();
   status_code fetch_time();
+  auto fetch(std::string const &)
   void _transform(std::string &, int);
   auto time(std::string const &);
   auto abbreviation(std::string const &);
