@@ -5,9 +5,11 @@ void timezns::load() noexcept {
   std::stringstream timezones{::timezones};
   std::string timezone;
 
+  timezns_.reserve(400);
+
   while (timezones >> timezone) {
     timezn temp = timezn().values(timezone);
-    timezns_.insert({temp.name(), temp});
+    timezns_.try_emplace(temp.name(), temp);
   }
 }
 
