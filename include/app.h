@@ -25,7 +25,7 @@ private:
   bool ip_address(std::string const &) const;
   std::string datetime();
   std::string capitalize(std::string);
-  std::string to_lower(std::string);
+  std::string& to_lower(std::string &);
   status ip(char **);
   std::string find_timezone();
   std::string preposition() const;
