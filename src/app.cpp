@@ -96,7 +96,11 @@ std::string app::usr_input() const {
 }
 
 std::string app::datetime() {
-  std::string temp, t, abbr, d;
+  std::string temp;
+  std::string t;
+  std::string abbr;
+  std::string d;
+
   int count{};
 
   while (fetched_ >> temp) {
