@@ -9,7 +9,7 @@ void app::tell(int argc, char **argv) {
 auto app::fetch(std::string const &url) {
   try {
     fetched_ << curlpp::options::Url(url);
-  } catch (curlpp::RuntimeError &e) {
+  } catch (curlpp::RuntimeError const &e) {
     using namespace std::string_literals;
     return status{1, e.what() + "\nplease check your internet connection\n"s};
   }
