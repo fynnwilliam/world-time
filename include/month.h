@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+namespace world_time {
 class month {
 private:
   std::vector<std::string> const months_{
@@ -15,3 +16,4 @@ public:
                                     : std::string{", Unknown_month"};
   }
 };
+} // namespace world_time
