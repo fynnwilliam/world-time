@@ -58,7 +58,7 @@ auto app::location(char **argv) noexcept {
 
 status app::assign_input(int argc, char **argv) {
   return argc > 3 || argc == 1      ? invalid(argv)
-         : !ip::ip_address(argv[1]) ? location(argv)
+         : !ip::valid_ip(argv[1]) ? location(argv)
          : argc > 2                 ? invalid(argv)
                                     : ip(argv);
 }
@@ -87,7 +87,7 @@ auto app::date(std::string const &d) {
 }
 
 std::string app::preposition() const {
-  return ip::ip_address(usr_input_) ? " at " : " in ";
+  return ip::valid_ip(usr_input_) ? " at " : " in ";
 }
 
 std::string app::usr_input() const {
@@ -148,7 +148,7 @@ std::string app::capitalize(std::string s) {
 }
 
 std::string app::find_timezone() {
-  return ip::ip_address(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
+  return ip::valid_ip(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
                                     : timezns_.find(usr_input_);
 }
 
@@ -176,7 +176,7 @@ bool private_ip(std::string const &ip) noexcept {
 
 bool public_ip(std::string const &ip) noexcept { return !private_ip(ip); }
 
-bool ip_address(std::string const &item) noexcept {
+bool valid_ip(std::string const &item) noexcept {
   std::regex pattern("([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])(\\.([01]?[0-9][0-"
                      "9]?|2[0-4][0-9]|25[0-5])){3}");
   return std::regex_match(item, pattern);

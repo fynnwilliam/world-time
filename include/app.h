@@ -46,6 +46,6 @@ bool private_b(std::string const &) noexcept;
 bool private_c(std::string const &) noexcept;
 bool private_ip(std::string const &) noexcept;
 bool public_ip(std::string const &) noexcept;
-bool ip_address(std::string const &) noexcept;
+bool valid_ip(std::string const &) noexcept;
 } // namespace ip
 } // namespace world_time
