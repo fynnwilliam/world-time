@@ -3,7 +3,7 @@
 
 namespace world_time {
 void timezns::load() noexcept {
-  std::stringstream timezones{::timezones};
+  std::stringstream timezones{world_time::timezones};
   std::string timezone;
 
   timezns_.reserve(400);

@@ -1,3 +1,4 @@
+namespace world_time {
 std::string timezones{
     "Africa/Abidjan Africa/Accra Africa/Algiers Africa/Bissau Africa/Cairo "
     "Africa/Casablanca Africa/Ceuta Africa/El_Aaiun Africa/Johannesburg "
@@ -92,3 +93,4 @@ std::string timezones{
     "Pacific/Noumea Pacific/Pago_Pago Pacific/Palau Pacific/Pitcairn "
     "Pacific/Pohnpei Pacific/Port_Moresby Pacific/Rarotonga Pacific/Tahiti "
     "Pacific/Tarawa Pacific/Tongatapu Pacific/Wake Pacific/Wallis WET"};
+}
