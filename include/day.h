@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+namespace world_time {
 class day {
 private:
   std::vector<std::string> const days_{"Sunday",    "Monday",   "Tuesday",
@@ -15,3 +16,4 @@ public:
                               : std::string{", Unknown_day"};
   }
 };
+} // namespace world_time
