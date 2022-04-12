@@ -8,6 +8,7 @@
 #include "status.h"
 #include "timezns.h"
 
+namespace world_time {
 class app {
 private:
   std::string usr_input_;
@@ -23,7 +24,7 @@ private:
   bool ip_address(std::string const &) const;
   std::string datetime();
   std::string capitalize(std::string);
-  std::string& to_lower(std::string &);
+  std::string &to_lower(std::string &);
   status ip(char **);
   std::string find_timezone();
   std::string preposition() const;
@@ -44,3 +45,4 @@ private:
 public:
   void tell(int, char **);
 };
+} // namespace world_time

@@ -2,6 +2,7 @@
 #include "day.h"
 #include "month.h"
 
+namespace world_time {
 void app::tell(int argc, char **argv) {
   assign_input(argc, argv) && fetch_time() && display_time();
 }
@@ -133,7 +134,7 @@ void app::_transform(std::string &s, int index) {
                  [](unsigned char c) { return std::toupper(c); });
 }
 
-std::string& app::to_lower(std::string& s) {
+std::string &app::to_lower(std::string &s) {
   std::transform(s.begin(), s.end(), s.begin(),
                  [](unsigned char c) { return std::tolower(c); });
 
@@ -179,3 +180,4 @@ bool app::ip_address(std::string const &item) const {
                      "9]?|2[0-4][0-9]|25[0-5])){3}");
   return std::regex_match(item, pattern);
 }
+} // namespace world_time
