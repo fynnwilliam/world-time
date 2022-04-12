@@ -42,7 +42,7 @@ status app::fetch_time() {
 }
 
 status app::ip(char **argv) {
-  return public_ip(usr_input_ = argv[1])
+  return ip::public_ip(usr_input_ = argv[1])
              ? status{}
              : status{1, "\"" + usr_input_ + "\" is not a public IP\n"};
 }
@@ -57,10 +57,10 @@ auto app::location(char **argv) noexcept {
 }
 
 status app::assign_input(int argc, char **argv) {
-  return argc > 3 || argc == 1  ? invalid(argv)
-         : !ip_address(argv[1]) ? location(argv)
-         : argc > 2             ? invalid(argv)
-                                : ip(argv);
+  return argc > 3 || argc == 1      ? invalid(argv)
+         : !ip::ip_address(argv[1]) ? location(argv)
+         : argc > 2                 ? invalid(argv)
+                                    : ip(argv);
 }
 
 std::string app::_url() {
@@ -87,7 +87,7 @@ auto app::date(std::string const &d) {
 }
 
 std::string app::preposition() const {
-  return ip_address(usr_input_) ? " at " : " in ";
+  return ip::ip_address(usr_input_) ? " at " : " in ";
 }
 
 std::string app::usr_input() const {
@@ -148,36 +148,38 @@ std::string app::capitalize(std::string s) {
 }
 
 std::string app::find_timezone() {
-  return ip_address(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
-                                : timezns_.find(usr_input_);
+  return ip::ip_address(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
+                                    : timezns_.find(usr_input_);
 }
 
-bool app::private_a(std::string const &ip) const {
+namespace ip {
+bool private_a(std::string const &ip) noexcept {
   std::regex pattern("([1][0])(\\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])){3}");
   return std::regex_match(ip, pattern);
 }
 
-bool app::private_b(std::string const &ip) const {
+bool private_b(std::string const &ip) noexcept {
   std::regex pattern("([1][7][2])(\\.(1[6-9]|2[0-9]|3[01]))(\\.([01]?[0-9][0-9]"
                      "?|2[0-4][0-9]|25[0-5])){2}");
   return std::regex_match(ip, pattern);
 }
 
-bool app::private_c(std::string const &ip) const {
+bool private_c(std::string const &ip) noexcept {
   std::regex pattern("([1][9][2])(\\.([1][6][8]))(\\.([01]?[0-9][0-9]?|2[0-4]["
                      "0-9]|25[0-5])){2}");
   return std::regex_match(ip, pattern);
 }
 
-bool app::private_ip(std::string const &ip) const {
+bool private_ip(std::string const &ip) noexcept {
   return private_a(ip) || private_b(ip) || private_c(ip);
 }
 
-bool app::public_ip(std::string const &ip) const { return !private_ip(ip); }
+bool public_ip(std::string const &ip) noexcept { return !private_ip(ip); }
 
-bool app::ip_address(std::string const &item) const {
+bool ip_address(std::string const &item) noexcept {
   std::regex pattern("([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])(\\.([01]?[0-9][0-"
                      "9]?|2[0-4][0-9]|25[0-5])){3}");
   return std::regex_match(item, pattern);
 }
+} // namespace ip
 } // namespace world_time

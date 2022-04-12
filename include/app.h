@@ -16,12 +16,6 @@ private:
 
   timezns timezns_;
 
-  bool private_a(std::string const &) const;
-  bool private_b(std::string const &) const;
-  bool private_c(std::string const &) const;
-  bool private_ip(std::string const &) const;
-  bool public_ip(std::string const &) const;
-  bool ip_address(std::string const &) const;
   std::string datetime();
   std::string capitalize(std::string);
   std::string &to_lower(std::string &);
@@ -45,4 +39,13 @@ private:
 public:
   void tell(int, char **);
 };
+
+namespace ip {
+bool private_a(std::string const &) noexcept;
+bool private_b(std::string const &) noexcept;
+bool private_c(std::string const &) noexcept;
+bool private_ip(std::string const &) noexcept;
+bool public_ip(std::string const &) noexcept;
+bool ip_address(std::string const &) noexcept;
+} // namespace ip
 } // namespace world_time
