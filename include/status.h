@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+namespace world_time {
 class status {
 private:
   int code_{};
@@ -21,3 +22,4 @@ public:
     return code_ == 0;
   }
 };
+} // namespace world_time
