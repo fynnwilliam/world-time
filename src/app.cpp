@@ -49,7 +49,7 @@ status app::ip(char **argv) {
 
 auto app::location(char **argv) noexcept {
   auto first = capitalize(argv[1]);
-  auto last = !argv[2] ? std::string{} : capitalize(argv[2]);
+  auto last = argv[2] == nullptr ? std::string{} : capitalize(argv[2]);
 
   usr_input_ = last.empty() ? first : first.append('_' + last);
 
@@ -57,10 +57,10 @@ auto app::location(char **argv) noexcept {
 }
 
 status app::assign_input(int argc, char **argv) {
-  return argc > 3 || argc == 1      ? invalid(argv)
+  return argc > 3 || argc == 1    ? invalid(argv)
          : !ip::valid_ip(argv[1]) ? location(argv)
-         : argc > 2                 ? invalid(argv)
-                                    : ip(argv);
+         : argc > 2               ? invalid(argv)
+                                  : ip(argv);
 }
 
 std::string app::_url() {
@@ -149,7 +149,7 @@ std::string app::capitalize(std::string s) {
 
 std::string app::find_timezone() {
   return ip::valid_ip(usr_input_) ? std::string{"/ip/"}.append(usr_input_)
-                                    : timezns_.find(usr_input_);
+                                  : timezns_.find(usr_input_);
 }
 
 namespace ip {
