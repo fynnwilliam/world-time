@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 
+namespace world_time {
 class timezn {
 private:
   std::string name_;
@@ -20,3 +21,4 @@ public:
   auto const &location() const noexcept { return location_; }
   auto const &area() const noexcept { return area_; }
 };
+} // namespace world_time

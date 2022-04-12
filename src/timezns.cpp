@@ -1,6 +1,7 @@
 #include "timezns.h"
 #include "timezones.h"
 
+namespace world_time {
 void timezns::load() noexcept {
   std::stringstream timezones{::timezones};
   std::string timezone;
@@ -28,3 +29,4 @@ std::string timezns::try_uppercase(std::string &zone) const noexcept {
   auto t = timezns_.find(to_upper(zone));
   return t == timezns_.end() ? std::string{} : t->second.sub_link();
 }
+} // namespace world_time

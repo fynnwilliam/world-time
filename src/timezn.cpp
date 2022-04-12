@@ -1,5 +1,6 @@
 #include "timezn.h"
 
+namespace world_time {
 timezn timezn::values(std::string &timezone) {
   std::replace(timezone.begin(), timezone.end(), '/', ' ');
   std::stringstream temp(timezone);
@@ -18,3 +19,4 @@ std::string timezn::sub_link() const {
 std::string timezn::try_insert_slash(std::string const &item) const {
   return item.empty() ? item : '/' + item;
 }
+} // namespace world_time

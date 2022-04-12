@@ -3,6 +3,7 @@
 #include "timezn.h"
 #include <unordered_map>
 
+namespace world_time {
 class timezns {
 private:
   std::unordered_map<std::string, timezn> timezns_;
@@ -16,3 +17,4 @@ public:
 
   std::string find(std::string &) const noexcept;
 };
+} // namespace world_time
