@@ -11,7 +11,7 @@ add_executable(time main.cpp)
 target_link_libraries(time PUBLIC app)
 
 if(MSVC)
-  target_compile_options(time PRIVATE \W4)
+  target_compile_options(time PRIVATE /W4 /O2)
 else()
   target_compile_options(time PRIVATE -Wall -Wextra -O3)
 endif()
