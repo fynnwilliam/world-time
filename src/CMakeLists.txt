@@ -1,9 +1,5 @@
 add_library(timezn timezn.cpp)
-if(MSVC)
-  target_include_directories(timezn PUBLIC ..\include)
-else()
-  target_include_directories(timezn PUBLIC ../include)
-endif()
+target_include_directories(timezn PUBLIC ../include)
 
 add_library(timezns timezns.cpp)
 target_link_libraries(timezns PUBLIC timezn)
